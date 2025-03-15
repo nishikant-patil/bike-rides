@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025 March Ride Details</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; line-height: 1.6; padding: 20px; }
@@ -52,16 +52,11 @@
     
 <script>
     document.getElementById("downloadBtn").addEventListener("click", function () {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        
-        let content = document.body.innerText;
-        let margin = 10;
-        let maxWidth = 180;
-        
-        doc.setFont("helvetica", "normal");
-        doc.text(content, margin, 20, { maxWidth: maxWidth });
-        doc.save("Ride_Details_2025.pdf");
+        const element = document.getElementById("content");
+        html2pdf()
+            .set({ margin: 10, filename: 'Ride_Details_2025.pdf', html2canvas: { scale: 2 }, jsPDF: { format: 'a4', orientation: 'portrait' } })
+            .from(element)
+            .save();
     });
 </script>
 
